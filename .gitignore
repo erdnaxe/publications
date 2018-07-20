@@ -1,0 +1,6 @@
+# Ignore system files
+.directory
+
+# Ignore build files
+build/
+

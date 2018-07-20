@@ -1,0 +1,10 @@
+<div id="header">
+  <a href="#" id="pdflink">Télécharger le PDF de ce document</a>
+</div>
+
+<script>
+var htmlFileName = String(location.href.split("/").slice(-1));
+var pdfFileName = htmlFileName.substr(0, htmlFileName.lastIndexOf("."))+".pdf";
+document.getElementById("pdflink").href = pdfFileName;
+</script>
+
