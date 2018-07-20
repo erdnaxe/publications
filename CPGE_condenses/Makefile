@@ -1,5 +1,5 @@
 # Compile all Markdown files except README and LICENSE
-SOURCES := $(filter-out README.md LICENCE.md, $(wildcard *.md))
+SOURCES := $(filter-out README.md LICENCE.md index.md, $(wildcard *.md))
 
 # Set targets
 BUILD_DIR := build/
