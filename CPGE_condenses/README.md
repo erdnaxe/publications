@@ -41,15 +41,17 @@ veuillez me contacter et je supprimerai le contenu en faute si c'est le cas.
 Dépendances nécessaires :
 
 * [Pandoc](https://pandoc.org/),
+* [pandoc-fignos](https://github.com/tomduck/pandoc-fignos),
 * Une installation LaTeX avec de préférence **XeTeX**.
 
 ### Sous Linux
 
 Sur une distribution basée sur Ubuntu/Debian vous pouvez installer les
-dépendances avec la commande suivante.
+dépendances avec les commandes suivantes.
 
 ```bash
 sudo apt install pandoc poppler-utils make texlive-xetex
+pip install pandoc-fignos
 ```
 
 Pour compiler les fiches, placez-vous dans le dossier et exécutez `make`.

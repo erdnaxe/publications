@@ -185,8 +185,7 @@ tels que
 Un système stable est un système qui revient vers sa position d'équilibre
 après perturbation.
 
-### Conditions de stabilité
-\label{condstab}
+### Conditions de stabilité {#condstab}
 
 Un système stable est un système qui admet une fonction de transfert $H(p)$
 telle que
@@ -206,7 +205,7 @@ que des solutions à partie réelle $<0$. <!-- -->
 
 *Démonstration.* Les racines de $1+H_{BO}$ sont les pôles de $H_{BF}$.
 
-![Représentation des pôles \label{f1}](assets/PSI_si_asservissement-poles)
+![Représentation des pôles](assets/PSI_si_asservissement-poles){#fig:f1}
 
 ### Critère de Routh (hors programme)
 
@@ -223,8 +222,7 @@ Le système est stable si seulement si
 Le nombre de racine à partie réelle strictement positive est donné par
 le nombre de changement de signe dans la première colonne.
 
-### Théorème de Cauchy (hors programme)
-\label{thmcauchy}
+### Théorème de Cauchy (hors programme) {#thmcauchy}
 
 Si un point $M$ d'affixe $p$ décrit dans le plan complexe un contour
 fermé $(C)$ dans le sens inverse trigonométrique, à l'intérieur duquel
@@ -235,8 +233,7 @@ $(Z-P)$ tours.
 *Démonstration.* La variation de l'argument de $F(p)$ pour un tour de $M$ sur
 $(C)$ est $(-2\pi) \times (Z-P)$.
 
-### Critère de Nyquist (hors programme)
-\label{crinyquist}
+### Critère de Nyquist (hors programme) {#crinyquist}
 
 Un système bouclé est stable en boucle fermée si seulement si le lieu de
 Nyquist de $H_{BO}$ complété et parcouru dans le sens des $\omega$
@@ -246,8 +243,8 @@ croissants
 * Fasse autour du point critique $-1$, $N$ tours dans le sens trigonométrique
   égal au nombre de pôles de $H_{BO}$ à partie réelle strictement positive.
 
-*Démonstration.* Par la condition de stabilité (\ref{condstab}) ainsi que le
-théorème de Cauchy (\ref{thmcauchy}) en considérant la courbe englobant
+*Démonstration.* Par [la condition de stabilité](#condstab) ainsi que
+[le théorème de Cauchy](#thmcauchy) en considérant la courbe englobant
 la partie réelle positive du plan complexe.
 Le point critique est en $-1$ car on se rapporte à $1+H_{BO}$.
 
@@ -259,7 +256,7 @@ le sens des $\omega$ croissants.
 
 Valable que si $H_{BO}$ n'a pas de pôle à partie réelle positive.
 
-*Démonstration.* Cas particulier du critère de Nyquist (\ref{crinyquist}).
+*Démonstration.* Cas particulier du [critère de Nyquist](#crinyquist).
 
 ### Marge de phase et de gain
 
@@ -296,17 +293,17 @@ fermée par retour unitaire.
 En traçant un lieu de $H_{BO}$ on trouve
 
 * Le facteur de qualité $Q$ par l'isomodule tangeant.
-* La marge de phase $M_\varphi$ et de gain $M_G$ (voir figure \ref{f3}). 
+* La marge de phase $M_\varphi$ et de gain $M_G$ (voir +@fig:f3). 
 
 *À faire au moins une fois dans sa vie.* Utiliser le module Control Design de
 MatLab-Simulink pour régler un correcteur via un abaque de Black-Nichols.
 
 ![Abaque de Black-Nichols avec le lieu d'une
-$H_{BO}$ \label{f3}](assets/PSI_si_asservissement-abaque)
+$H_{BO}$](assets/PSI_si_asservissement-abaque){#fig:f3}
 
 ### Modes et Pôles dominants
 
-Voir la figure \ref{f1}. On peut approximer une fonction de transfert avec ses
+Voir +@fig:f1. On peut approximer une fonction de transfert avec ses
 pôles dominants (les plus proches de l'origine) après le début du régime
 transitoire.
 
@@ -426,14 +423,13 @@ $$ \left.\frac{\mathrm{d}\vec{u}}{\mathrm{d}t}\right|_{R_0} =
 \left.\frac{\mathrm{d}\vec{u}}{\mathrm{d}t}\right|_R
 + \overrightarrow{\Omega}_{R/R_0} \wedge \vec{u} $$
 
-### Théorème de Varignon
-\label{varignon}
+### Théorème de Varignon {#varignon}
 
 Chaque torseur est composé d'**une résultante** et d'**un moment** (dépendant du
 point). Le théorème de Varignon permet de déplacer le point d'écriture du
 torseur.
 
-Par exemple pour le torseur cinématique (voir \ref{torseurs}), on obtient la
+Par exemple pour [le torseur cinématique](#torseurs), on obtient la
 formule de Varignon
 $$ \overrightarrow{V}_{B,~S/R} = \overrightarrow{V}_{A,~S/R} +
 \overrightarrow{BA} \wedge \overrightarrow{\Omega}_{S/R} $$
@@ -471,8 +467,7 @@ $$\vec{u} \wedge (\vec{v} \wedge \vec{w})
 
 On se limite à des **solides indéformables** et à **masse conservative**.
 
-### Les torseurs utilisés
-\label{torseurs}
+### Les torseurs utilisés {#torseurs}
 
 **Le torseur cinématique**
 $$ \{ \mathcal{V}_{S/R} \}
@@ -527,7 +522,7 @@ $$ \vec{\delta}_{A,E/R}
 + m\left.\frac{\mathrm{d}\overrightarrow{OA}}{\mathrm{d}t} \right|_R \wedge
 \vec{V}_{G,~E/R}$$
 
-*Démonstration.* Avec la définition des torseurs (voir \ref{torseurs}).
+*Démonstration.* Avec [la définition des torseurs](#torseurs).
 
 ### Théorème des actions réciproques
 
@@ -544,11 +539,10 @@ $$ \mathrm{d}\vec{f}(M) = \overrightarrow{a}_{M/R}\,\mathrm{d}m $$
 On obtient le théorème de la résultante et du moment :
 $$\{ \mathcal{T}_{\overline{E}/E} \} = \{ \mathcal{D}_{E/R} \}$$
 
-*Démonstration.* On utilise la relation précédente avec la définition des
-torseurs (voir \ref{torseurs}).
+*Démonstration.* On utilise la relation précédente avec
+[la définition des torseurs](#torseurs).
 
-### Un peu d'algèbre linéaire
-\label{algebre}
+### Un peu d'algèbre linéaire {#algebre}
 
 On considère le plan euclidien.
 Soit le vecteur $\overrightarrow{AG}$ de coordonnées $(x, y, z)$ dans la base
@@ -583,20 +577,19 @@ Elle est symétrique réelle donc il existe une **base principale d'inertie**
 où elle est diagonale et ses valeurs propres sont les **moments principaux 
 d'inertie**.
 
-Par ce qui précède (voir \ref{algebre})
+Par [ce qui précède](#algebre)
 $$\mathcal{I}(A,S) = \int_S M \, \mathrm{d}m$$
 
 *À savoir faire.* Trouver la matrice d'inertie d'objets rudimentaires dans une
 base bien choisie.
 
-### Théorème de Huyghens
-\label{huyghens}
+### Théorème de Huyghens {#huyghens}
 
 Le théorème de Huyghens s'écrit
 $$ \mathcal{I}(A, S)\vec{u} = \mathcal{I}(G, S)\vec{u}
 + m\,\overrightarrow{AG} \wedge (\vec{u} \wedge \overrightarrow{AG}) $$
 
-Donc avec ce qui précède (voir \ref{algebre}) avec
+Donc avec [ce qui précède](#algebre) avec
 $\overrightarrow{AM}=\overrightarrow{AG}$
 $$ \mathcal{I}(A, S) = \mathcal{I}(G, S) + m\,M $$
 
@@ -694,8 +687,7 @@ point](http://films-lab.univ-lille1.fr/michael/michael/Teaching_files/C2.pdf)
 
 ## Théorème de l'énergie cinétique
 
-### Énergie cinétique de S par rapport à R
-\label{energiecin}
+### Énergie cinétique de S par rapport à R {#energiecin}
 
 L'énergie cinétique de S par rapport à R est
 $$ T(S/R) = \frac{1}{2} \int_S \overrightarrow{V}_{M,~S/R}^2 \, dm $$
@@ -722,8 +714,9 @@ $$ {P_{a}}_{(S/R)} = \{\mathcal{D}_{S/R}\}_B \otimes \{\mathcal{V}_{S/R}\}_B $$
 Donc
 $$ {P_{a}}_{(S/R)} = \frac{d T(S/R)}{dt}$$
 
-*Démonstration.* Par le calcul en utilisant la définition des torseurs (voir
-\ref{torseurs}) et de l'énergie cinétique (voir \ref{energiecin}).
+*Démonstration.* Par le calcul en utilisant
+[la définition des torseurs](#torseurs) et
+[de l'énergie cinétique](#energiecin).
 
 ### Théorème de l'énergie cinétique
 
@@ -745,7 +738,7 @@ T(S/R) & = & \frac{1}{2} m \overrightarrow{V}_{A,~S/R}^2 \\
 \end{array}$$
 
 *Démonstration (à savoir faire).* À partir de la définition de $T(S/R)$ et avec
-la formule de Varignon (voir \ref{varignon}).
+[la formule de Varignon](#varignon).
 
 *Remarque.* Le choix du point $A$ n'est important que pour le calcul. Il faut
 donc le choisir astucieusement.

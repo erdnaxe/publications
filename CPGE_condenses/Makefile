@@ -36,6 +36,10 @@ PARAMETERS_WEB += -A include/footer.html -B include/header.html
 PARAMETERS_PDF += --default-image-extension=pdf
 PARAMETERS_WEB += --default-image-extension=svg
 
+# Pandoc filters
+PARAMETERS_PDF += --filter pandoc-fignos
+PARAMETERS_WEB += --filter pandoc-fignos
+
 all: $(TARGETS_PDF) $(TARGETS_WEB) $(TARGET_ASSETS)
 
 $(ASSETS_BUILD_DIR)%.svg: assets/%.pdf
