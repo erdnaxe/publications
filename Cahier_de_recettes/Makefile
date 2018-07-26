@@ -1,10 +1,10 @@
-# Compile all Markdown files except README and LICENSE
-SOURCES := $(filter-out README.md LICENCE.md index.md, $(wildcard *.md))
+# Markdown list ordered
+SOURCES := sauces.md
 
-# Set targets
+# Set target
 BUILD_DIR := build/
-TARGETS_PDF := $(addprefix $(BUILD_DIR),$(SOURCES:.md=.pdf))
-TARGETS_WEB := $(addprefix $(BUILD_DIR),$(SOURCES:.md=.html))
+TARGET_PDF := $(BUILD_DIR)index.pdf
+TARGET_WEB := $(BUILD_DIR)index.html
 
 ASSETS_BUILD_DIR := $(BUILD_DIR)assets/
 ASSETS := $(wildcard assets/*)
@@ -15,18 +15,15 @@ TARGET_ASSETS += $(addprefix $(BUILD_DIR),$(WEBFONTS))
 # Change LaTeX engine and use custom header and font
 PARAMETERS_PDF := --pdf-engine=xelatex
 PARAMETERS_PDF += --include-in-header="include/header.tex"
-PARAMETERS_PDF += -V mainfont:"texgyrepagella.otf" \
+PARAMETERS_PDF += -V mainfont:"texgyrebonum.otf" \
 	-V 'mainfontoptions: Path = fonts/, \
 		UprightFont = *-regular, \
 		BoldFont = *-bold, \
 		ItalicFont = *-italic, \
-		BoldItalicFont = *-bolditalic' \
-	-V mathfont:"texgyrepagella-math.otf" \
-	-V 'mathfontoptions: Path = fonts/, \
-	    math-style=french'
+		BoldItalicFont = *-bolditalic'
 
 # HTML documents settings
-PARAMETERS_WEB := -s -c "assets/layout.css" --katex --toc -N
+PARAMETERS_WEB := -s -c "assets/layout.css" --toc
 
 # Licence documents
 PARAMETERS_PDF += -V include-before:"\printlicence" 
@@ -36,11 +33,7 @@ PARAMETERS_WEB += -A include/footer.html -B include/header.html
 PARAMETERS_PDF += --default-image-extension=pdf
 PARAMETERS_WEB += --default-image-extension=svg
 
-# Pandoc filters
-PARAMETERS_PDF += --filter pandoc-fignos
-PARAMETERS_WEB += --filter pandoc-fignos
-
-all: $(TARGETS_PDF) $(TARGETS_WEB) $(TARGET_ASSETS)
+all: $(TARGET_PDF) $(TARGET_WEB) $(TARGET_ASSETS)
 
 $(ASSETS_BUILD_DIR)%.svg: assets/%.pdf
 	@echo "Converting $< to SVG..."
@@ -63,16 +56,16 @@ $(BUILD_DIR)fonts/%.woff: fonts/%.woff
 	@mkdir -p "$(BUILD_DIR)fonts" # Make sure build dir exists
 	@cp "$<" "$@" # Copy fonts
 
-$(BUILD_DIR)%.pdf : %.md $(ASSETS) include/header.tex
+$(BUILD_DIR)index.pdf : $(SOURCES) $(ASSETS) include/header.tex
 	@echo "Generating $@..."
 	@mkdir -p "$(BUILD_DIR)" # Make sure build dir exists
-	@pandoc $(PARAMETERS_PDF) "$<" -o "$@"
+	@pandoc $(PARAMETERS_PDF) index.md $(SOURCES) -o "$@"
 
-$(BUILD_DIR)%.html : %.md include/footer.html include/header.html $(TARGET_ASSETS)
+$(BUILD_DIR)index.html : $(SOURCES) $(ASSETS) include/footer.html include/header.html
 	@echo "Generating $@..."
 	@mkdir -p "$(BUILD_DIR)" # Make sure build dir exists
-	@pandoc $(PARAMETERS_WEB) "$<" -o "$@"
+	@pandoc $(PARAMETERS_WEB) index.md $(SOURCES) -o "$@"
 
 clean:
-	@rm -rf $(TARGETS_PDF) $(TARGETS_WEB) $(TARGET_ASSETS)
+	@rm -rf $(TARGET_PDF) $(TARGET_WEB) $(TARGET_ASSETS)
 

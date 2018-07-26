@@ -1,0 +1,38 @@
+% Page footer
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyhf{}
+\fancyfoot[RE,LO]{
+  A. Iooss / 
+  \href{https://creativecommons.org/licenses/by-sa/4.0/}{CC BY-SA}
+}
+\fancyfoot[LE,RO]{Page \thepage/\pageref{LastPage}}
+
+% Custom titles
+\usepackage[dvipsnames]{xcolor}
+\renewcommand{\title}[1]{
+  \renewcommand{\maketitle}{
+    \begin{center}
+      \textbf{\Huge #1}
+    \end{center}
+    \vspace{12pt}
+  }
+}
+\renewcommand{\subsection}[1]{
+  \addcontentsline{toc}{subsection}{#1}
+  {\color{Bittersweet}\Large\bfseries #1}
+}
+
+% Licence and date
+\newcommand{\printlicence}{
+  Ce document écrit par 
+  \href{https://erdnaxe.github.io/}{Alexandre Iooss} est sous licence
+  \href{https://creativecommons.org/licenses/by-sa/4.0/}{
+  Creative Commons Attribution-ShareAlike 4.0}.
+  
+  Cette version a été générée le \today.
+}
+
