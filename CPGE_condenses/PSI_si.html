@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR" xml:lang="fr-FR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="keywords" content="S2I,SI,PSI,cours,condensé,asservissement,mécanique,logique" />
+  <title>Condensé de cours de SI de PSI</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="assets/layout.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body);
+  });</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<div id="header">
+  <p>
+    <a href="index.html">&larr; Retourner à l'index</a>
+  </p>
+  <p>
+    <a href="#" id="pdflink">Télécharger le PDF de ce document</a>
+  </p>
+</div>
+
+<script>
+var htmlFileName = String(location.href.split("/").slice(-1));
+var pdfFileName = htmlFileName.substr(0, htmlFileName.lastIndexOf("."))+".pdf";
+document.getElementById("pdflink").href = pdfFileName;
+</script>
+<header>
+<h1 class="title">Condensé de cours de SI de PSI</h1>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="#asservissement"><span class="toc-section-number">1</span> Asservissement</a><ul>
+<li><a href="#rappels-de-première-année"><span class="toc-section-number">1.1</span> Rappels de première année</a><ul>
+<li><a href="#les-transformations"><span class="toc-section-number">1.1.1</span> Les transformations</a></li>
+<li><a href="#formulaire-des-transformées-de-laplace"><span class="toc-section-number">1.1.2</span> Formulaire des transformées de <em>Laplace</em></a></li>
+<li><a href="#dépassement-dun-second-ordre"><span class="toc-section-number">1.1.3</span> Dépassement d’un second ordre</a></li>
+<li><a href="#identifier-un-second-ordre"><span class="toc-section-number">1.1.4</span> Identifier un second ordre</a></li>
+</ul></li>
+<li><a href="#précision-des-systèmes-bouclés"><span class="toc-section-number">1.2</span> Précision des systèmes bouclés</a><ul>
+<li><a href="#classe-dune-fonction-de-transfert"><span class="toc-section-number">1.2.1</span> Classe d’une fonction de transfert</a></li>
+<li><a href="#en-régime-permanent-en-poursuite"><span class="toc-section-number">1.2.2</span> En régime permanent en poursuite</a></li>
+<li><a href="#en-régime-permanent-en-régulation"><span class="toc-section-number">1.2.3</span> En régime permanent en régulation</a></li>
+<li><a href="#en-régime-harmonique-en-poursuite"><span class="toc-section-number">1.2.4</span> En régime harmonique en poursuite</a></li>
+<li><a href="#en-régime-harmonique-en-régulation"><span class="toc-section-number">1.2.5</span> En régime harmonique en régulation</a></li>
+<li><a href="#cas-de-non-linéarité"><span class="toc-section-number">1.2.6</span> Cas de non linéarité</a></li>
+</ul></li>
+<li><a href="#stabilité-des-systèmes-asservis"><span class="toc-section-number">1.3</span> Stabilité des systèmes asservis</a><ul>
+<li><a href="#stabilité"><span class="toc-section-number">1.3.1</span> Stabilité</a></li>
+<li><a href="#condstab"><span class="toc-section-number">1.3.2</span> Conditions de stabilité</a></li>
+<li><a href="#critère-de-routh-hors-programme"><span class="toc-section-number">1.3.3</span> Critère de Routh (hors programme)</a></li>
+<li><a href="#thmcauchy"><span class="toc-section-number">1.3.4</span> Théorème de Cauchy (hors programme)</a></li>
+<li><a href="#crinyquist"><span class="toc-section-number">1.3.5</span> Critère de Nyquist (hors programme)</a></li>
+<li><a href="#critère-du-revers"><span class="toc-section-number">1.3.6</span> Critère du Revers</a></li>
+<li><a href="#marge-de-phase-et-de-gain"><span class="toc-section-number">1.3.7</span> Marge de phase et de gain</a></li>
+<li><a href="#facteur-de-résonance"><span class="toc-section-number">1.3.8</span> Facteur de résonance</a></li>
+<li><a href="#abaque-de-black-nichols"><span class="toc-section-number">1.3.9</span> Abaque de Black-Nichols</a></li>
+<li><a href="#modes-et-pôles-dominants"><span class="toc-section-number">1.3.10</span> Modes et Pôles dominants</a></li>
+</ul></li>
+<li><a href="#correcteurs-régulateurs"><span class="toc-section-number">1.4</span> Correcteurs (Régulateurs)</a><ul>
+<li><a href="#les-correcteurs-en-parallèle"><span class="toc-section-number">1.4.1</span> Les correcteurs en parallèle</a></li>
+<li><a href="#les-correcteurs-en-série"><span class="toc-section-number">1.4.2</span> Les correcteurs en série</a></li>
+<li><a href="#les-correcteurs-classiques"><span class="toc-section-number">1.4.3</span> Les correcteurs classiques</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#mécanique"><span class="toc-section-number">2</span> Mécanique</a><ul>
+<li><a href="#rappels-de-première-année-1"><span class="toc-section-number">2.1</span> Rappels de première année</a><ul>
+<li><a href="#formule-de-willis"><span class="toc-section-number">2.1.1</span> Formule de Willis</a></li>
+<li><a href="#formule-de-la-base-mobile"><span class="toc-section-number">2.1.2</span> Formule de la base mobile</a></li>
+<li><a href="#varignon"><span class="toc-section-number">2.1.3</span> Théorème de Varignon</a></li>
+<li><a href="#modélisation-des-actions-mécaniques"><span class="toc-section-number">2.1.4</span> Modélisation des actions mécaniques</a></li>
+<li><a href="#formule-de-gibbs"><span class="toc-section-number">2.1.5</span> Formule de Gibbs</a></li>
+</ul></li>
+<li><a href="#dynamique-des-solides"><span class="toc-section-number">2.2</span> Dynamique des solides</a><ul>
+<li><a href="#torseurs"><span class="toc-section-number">2.2.1</span> Les torseurs utilisés</a></li>
+<li><a href="#propriétés-de-ces-torseurs"><span class="toc-section-number">2.2.2</span> Propriétés de ces torseurs</a></li>
+<li><a href="#théorème-des-actions-réciproques"><span class="toc-section-number">2.2.3</span> Théorème des actions réciproques</a></li>
+<li><a href="#théorèmes-généraux-de-la-mécanique"><span class="toc-section-number">2.2.4</span> Théorèmes généraux de la mécanique</a></li>
+<li><a href="#algebre"><span class="toc-section-number">2.2.5</span> Un peu d’algèbre linéaire</a></li>
+<li><a href="#opérateur-dinertie"><span class="toc-section-number">2.2.6</span> Opérateur d’inertie</a></li>
+<li><a href="#matrice-dinertie"><span class="toc-section-number">2.2.7</span> Matrice d’inertie</a></li>
+<li><a href="#huyghens"><span class="toc-section-number">2.2.8</span> Théorème de Huyghens</a></li>
+<li><a href="#moment-dinertie-par-rapport-à-une-droite"><span class="toc-section-number">2.2.9</span> Moment d’inertie par rapport à une droite</a></li>
+<li><a href="#caractéristiques-dinertie"><span class="toc-section-number">2.2.10</span> Caractéristiques d’inertie</a></li>
+<li><a href="#méthode-de-résolution-dun-problème"><span class="toc-section-number">2.2.11</span> Méthode de résolution d’un problème</a></li>
+<li><a href="#théorèmes-de-guldin-hors-programme"><span class="toc-section-number">2.2.12</span> Théorèmes de Guldin (hors programme)</a></li>
+<li><a href="#cas-dans-un-référentiel-non-galiléen-hors-programme"><span class="toc-section-number">2.2.13</span> Cas dans un référentiel non Galiléen (hors programme)</a></li>
+</ul></li>
+<li><a href="#théorème-de-lénergie-cinétique"><span class="toc-section-number">2.3</span> Théorème de l’énergie cinétique</a><ul>
+<li><a href="#energiecin"><span class="toc-section-number">2.3.1</span> Énergie cinétique de S par rapport à R</a></li>
+<li><a href="#puissance-des-efforts-extérieurs"><span class="toc-section-number">2.3.2</span> Puissance des efforts extérieurs</a></li>
+<li><a href="#puissance-des-efforts-intérieurs"><span class="toc-section-number">2.3.3</span> Puissance des efforts intérieurs</a></li>
+<li><a href="#puissance-des-quantités-daccélération"><span class="toc-section-number">2.3.4</span> Puissance des quantités d’accélération</a></li>
+<li><a href="#théorème-de-lénergie-cinétique-1"><span class="toc-section-number">2.3.5</span> Théorème de l’énergie cinétique</a></li>
+<li><a href="#expression-de-lénergie-cinétique"><span class="toc-section-number">2.3.6</span> Expression de l’énergie cinétique</a></li>
+<li><a href="#utilisation-du-théorème-de-lénergie-cinétique"><span class="toc-section-number">2.3.7</span> Utilisation du théorème de l’énergie cinétique</a></li>
+</ul></li>
+<li><a href="#mobilité-hyperstaticité"><span class="toc-section-number">2.4</span> Mobilité, hyperstaticité</a><ul>
+<li><a href="#nombre-cyclomatique"><span class="toc-section-number">2.4.1</span> Nombre cyclomatique</a></li>
+<li><a href="#analyse-cinématique"><span class="toc-section-number">2.4.2</span> Analyse cinématique</a></li>
+<li><a href="#analyse-statique"><span class="toc-section-number">2.4.3</span> Analyse statique</a></li>
+<li><a href="#mobilité-cinématique"><span class="toc-section-number">2.4.4</span> Mobilité cinématique</a></li>
+<li><a href="#déterminant-caractéristique"><span class="toc-section-number">2.4.5</span> Déterminant caractéristique</a></li>
+<li><a href="#hyperstaticité"><span class="toc-section-number">2.4.6</span> Hyperstaticité</a></li>
+<li><a href="#formule-de-mobilité"><span class="toc-section-number">2.4.7</span> Formule de mobilité</a></li>
+</ul></li>
+<li><a href="#équilibrage"><span class="toc-section-number">2.5</span> Équilibrage</a><ul>
+<li><a href="#solide-équilibré"><span class="toc-section-number">2.5.1</span> Solide équilibré</a></li>
+<li><a href="#théorème"><span class="toc-section-number">2.5.2</span> Théorème</a></li>
+<li><a href="#question-de-cours"><span class="toc-section-number">2.5.3</span> Question de cours</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#logique-séquentielle"><span class="toc-section-number">3</span> Logique séquentielle</a><ul>
+<li><a href="#circuits-logiques"><span class="toc-section-number">3.1</span> Circuits logiques</a><ul>
+<li><a href="#bascule-rs"><span class="toc-section-number">3.1.1</span> Bascule RS</a></li>
+</ul></li>
+<li><a href="#diagrammes-sysml"><span class="toc-section-number">3.2</span> Diagrammes SysML</a><ul>
+<li><a href="#architecture-des-systèmes"><span class="toc-section-number">3.2.1</span> Architecture des systèmes</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#hydraulique-et-pneumatique-de-puissance"><span class="toc-section-number">4</span> Hydraulique et pneumatique de puissance</a><ul>
+<li><a href="#pneumatique-de-puissance"><span class="toc-section-number">4.1</span> Pneumatique de puissance</a><ul>
+<li><a href="#distribution-de-lénergie"><span class="toc-section-number">4.1.1</span> Distribution de l’énergie</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+
+<p><img src="assets/PSI_si_dessin.svg" /></p>
+
+<h1 id="asservissement"><span class="header-section-number">1</span> Asservissement</h1>
+<h2 id="rappels-de-première-année"><span class="header-section-number">1.1</span> Rappels de première année</h2>
+<h3 id="les-transformations"><span class="header-section-number">1.1.1</span> Les transformations</h3>
+<p>Soit <span class="math inline">\(f\)</span> une fonction du temps telle que <span class="math inline">\(\forall t &lt; 0, f(t)=0\)</span>. <!-- --> La transformée de <em>Laplace</em> de <span class="math inline">\(f\)</span> est <span class="math display">\[ \mathcal{L}(f):p \mapsto \int_{0^-}^\infty f(t)\,e^{-pt}\,\mathrm{d}t \]</span></p>
+<p>Soit <span class="math inline">\(f\)</span> une fonction du temps. La transformée de <em>Fourier</em> (hors programme) de <span class="math inline">\(f\)</span> est <span class="math display">\[ \mathcal{F}(f):\omega \mapsto \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty}
+f(t)\,\mathrm{e}^{-{\rm{j}}\omega t}\,\mathrm{d}t \]</span></p>
+<p>Soit <span class="math inline">\(s\)</span> une fonction discrète du temps. La transformée en Z (hors programme) de <span class="math inline">\(f\)</span> est <span class="math display">\[ \mathcal{Z}(s): z \mapsto \sum_{n=-\infty}^{+\infty} s(n)\,z^{-n} \]</span></p>
+<h3 id="formulaire-des-transformées-de-laplace"><span class="header-section-number">1.1.2</span> Formulaire des transformées de <em>Laplace</em></h3>
+<p>Dans les pays anglo-saxons, <span class="math inline">\(p\)</span> se note <span class="math inline">\(s\)</span>.</p>
+<p><span class="math inline">\(u\)</span> est la fonction d’Heaviside.</p>
+<h4 id="théorème-de-la-valeur-finale"><span class="header-section-number">1.1.2.1</span> Théorème de la valeur finale</h4>
+<p><span class="math display">\[\underset{t \rightarrow +\infty}{\mathrm{lim}} ~ f(t) =
+\underset{p \rightarrow 0}{\mathrm{lim}} ~ p\,F(p)\]</span> (valeur initiale : <span class="math inline">\(p \rightarrow +\infty\)</span>)</p>
+<h4 id="dérivation-intégration-par-partie"><span class="header-section-number">1.1.2.2</span> Dérivation (intégration par partie)</h4>
+<p><span class="math display">\[\frac{\mathrm{d}f(t)}{\mathrm{d}t}u(t) \underset{\mathcal{L}}{\longrightarrow}
+p\,F(p)-f(t=0^+)\]</span></p>
+<h4 id="intégration"><span class="header-section-number">1.1.2.3</span> Intégration</h4>
+<p><span class="math display">\[\int_a^t f(x)\,u(x)\,\mathrm{d}x  \underset{\mathcal{L}}{\longrightarrow}
+\frac{F(p)}{p}+\frac{1}{p} \int_a^0 f(x)\,\mathrm{d}x\]</span></p>
+<h4 id="translation-changement-de-variable"><span class="header-section-number">1.1.2.4</span> Translation (changement de variable)</h4>
+<p><span class="math display">\[f(t-\tau)\,u(t-\tau) \underset{\mathcal{L}}{\longrightarrow}
+e^{-\tau\,p}\,F(p)\]</span></p>
+<h4 id="homothétie-changement-de-variable"><span class="header-section-number">1.1.2.5</span> Homothétie (changement de variable)</h4>
+<p><span class="math display">\[f(a\,t)\,u(t) \underset{\mathcal{L}}{\longrightarrow}
+\frac{1}{a}\,F\left(\frac{p}{a}\right)\]</span></p>
+<h4 id="multiplication-par-e-at"><span class="header-section-number">1.1.2.6</span> Multiplication par <span class="math inline">\(e^{-a\,t}\)</span></h4>
+<p><span class="math display">\[e^{-a\,t}\,f(t)\,u(t) \underset{\mathcal{L}}{\longrightarrow} F(p+a)\]</span></p>
+<h4 id="dirac"><span class="header-section-number">1.1.2.7</span> Dirac</h4>
+<p><span class="math display">\[\delta (t) \underset{\mathcal{L}}{\longrightarrow} 1\]</span></p>
+<h4 id="heaviside-rampe"><span class="header-section-number">1.1.2.8</span> Heaviside, Rampe…</h4>
+<p><span class="math display">\[\forall n\in\mathbb{N},\quad t^n\,u(t) \underset{\mathcal{L}}{\longrightarrow}
+\frac{n!}{p^{n+1}}\]</span></p>
+<h4 id="oscillations"><span class="header-section-number">1.1.2.9</span> Oscillations</h4>
+<p><span class="math display">\[\sin(\omega t)\,u(t) \underset{\mathcal{L}}{\longrightarrow}
+\frac{\omega}{p^2+\omega^2}\]</span> <span class="math display">\[\cos(\omega t)\,u(t) \underset{\mathcal{L}}{\longrightarrow}
+\frac{p}{p^2+\omega^2}\]</span></p>
+<h3 id="dépassement-dun-second-ordre"><span class="header-section-number">1.1.3</span> Dépassement d’un second ordre</h3>
+<p>Lors de la réponse d’un second ordre à un échelon, le <span class="math inline">\(k\)</span>-ième dépassement vaut (pourcentage relatif à la consigne) <span class="math display">\[ D_k = \exp \left({\frac{-k \xi \pi}{\sqrt{1-\xi^2}}}\right) \]</span></p>
+<h3 id="identifier-un-second-ordre"><span class="header-section-number">1.1.4</span> Identifier un second ordre</h3>
+<p>On cherche à identifier un second ordre avec la réponse temporelle à un échelon.</p>
+<p><span class="math display">\[ H(p)=\frac{K}{1+\frac{2\xi}{\omega_0}p+\frac{p^2}{\omega_0^2}} \]</span></p>
+<p>Déjà on a <strong>le gain <span class="math inline">\(K\)</span></strong> en régime établi (rapport de la sortie sur l’entrée).</p>
+<p>On cherche ensuite <strong>le coefficient d’amortissement <span class="math inline">\(\xi\)</span></strong>. On mesure le 1er dépassement <span class="math inline">\(D\)</span> et on utilise cette formule <span class="math display">\[ D = \exp \left({\frac{-\xi \pi}{\sqrt{1-\xi^2}}}\right) \]</span></p>
+<p>On cherche enfin <strong>la pulsation propre du système <span class="math inline">\(\omega_0\)</span></strong>. Pour cela on mesure la pseudo période <span class="math inline">\(T\)</span> et on utilise <span class="math display">\[ \frac{2\pi}{T} = \omega = \omega_0 \sqrt{1-\xi^2} \]</span></p>
+<!-- TODO Rappeler la méthode de Black -->
+<!-- TODO Rappeler la décomposition en elmts simples -->
+<!-- TODO Rappeler différence système bouclé/dynamique et qu'est ce qu'est
+un système asservi -->
+
+<h2 id="précision-des-systèmes-bouclés"><span class="header-section-number">1.2</span> Précision des systèmes bouclés</h2>
+<h3 id="classe-dune-fonction-de-transfert"><span class="header-section-number">1.2.1</span> Classe d’une fonction de transfert</h3>
+<p>Une fonction de transfert de classe <span class="math inline">\(\alpha\)</span> s’écrit canoniquement <span class="math display">\[G(p)=\frac{K}{p^\alpha} \times \frac{1+b_1 p+...}{1+a_1 p+...}\]</span></p>
+<h3 id="en-régime-permanent-en-poursuite"><span class="header-section-number">1.2.2</span> En régime permanent en poursuite</h3>
+<p>Soit <span class="math inline">\(\alpha\)</span> la classe généralisée de <span class="math inline">\(H_{BO}(p)\)</span>.</p>
+<ul>
+<li><p>Pour <span class="math inline">\(\alpha = 0\)</span>, <span class="math inline">\(\epsilon_{statique} = \frac{X_0}{1+K_{BO}}\)</span></p></li>
+<li><p>Pour <span class="math inline">\(\alpha = 1\)</span>, <span class="math inline">\(\epsilon_{statique} = 0\)</span> et <span class="math inline">\(\epsilon_{trainage} = \frac{V}{K_{BO}}\)</span></p></li>
+<li><p>Pour <span class="math inline">\(\alpha = 2\)</span>, <span class="math inline">\(\epsilon_{statique} = \epsilon_{trainage} = 0\)</span> et <span class="math inline">\(\epsilon_{acceleration} = \frac{a}{K_{BO}}\)</span></p></li>
+</ul>
+<p>Donc l’erreur en régime permanent diminue si le gain <span class="math inline">\(K_{BO}\)</span> ou la classe <span class="math inline">\(\alpha\)</span> augmentent.</p>
+<p><em>Démonstration.</em> On applique le théorème de la valeur final sur le signal d’erreur <span class="math inline">\(\epsilon(p)\)</span> (après le comparateur) avec en entrée un échelon, une rampe puis une parabole.</p>
+<h3 id="en-régime-permanent-en-régulation"><span class="header-section-number">1.2.3</span> En régime permanent en régulation</h3>
+<p>L’erreur due à une perturbation en régulation diminue si le gain ou le nombre d’intégrateur en amont de cette perturbation augmentent.</p>
+<p><em>Démonstration.</em> Comme la démonstration précédente mais on considère la consigne nulle et une perturbation.</p>
+<h3 id="en-régime-harmonique-en-poursuite"><span class="header-section-number">1.2.4</span> En régime harmonique en poursuite</h3>
+<p>Plus la bande passante d’un système bouclé est grande, plus le système est précis en régime sinusoïdal sur une grande plage de fréquence.</p>
+<p><em>Démonstration.</em> L’expression du gain de la BF avec <span class="math inline">\(H_{BO}(p)\)</span> montre qu’il existe une pulsation de coupure que l’on souhaite maximiser pour être précis en hautes fréquences.</p>
+<h3 id="en-régime-harmonique-en-régulation"><span class="header-section-number">1.2.5</span> En régime harmonique en régulation</h3>
+<p>Plus la bande passante des composants en amont de la perturbation est grande, plus le système est précis vis-à-vis d’une perturbation harmonique de haute fréquence.</p>
+<p><em>Démonstration.</em> Comme la démonstration précédente mais on considère la consigne nulle et une perturbation.</p>
+<h3 id="cas-de-non-linéarité"><span class="header-section-number">1.2.6</span> Cas de non linéarité</h3>
+<p>Les modèles utilisés sont des approximations linéaires autour de points de fonctionnement. Pour rester réaliste il faut éviter les phénomènes non linéaires tels que</p>
+<ul>
+<li><strong>Une saturation</strong> (ex : tension max d’un hacheur),</li>
+<li><strong>Une zone morte</strong> (ex : tension min d’un MCC).</li>
+</ul>
+
+<h2 id="stabilité-des-systèmes-asservis"><span class="header-section-number">1.3</span> Stabilité des systèmes asservis</h2>
+<h3 id="stabilité"><span class="header-section-number">1.3.1</span> Stabilité</h3>
+<p>Un système stable est un système qui revient vers sa position d’équilibre après perturbation.</p>
+<h3 id="condstab"><span class="header-section-number">1.3.2</span> Conditions de stabilité</h3>
+<p>Un système stable est un système qui admet une fonction de transfert <span class="math inline">\(H(p)\)</span> telle que <span class="math display">\[ \forall \text{pôles~}p_i\text{~de~}H(p),\quad\mathrm{Re}(p_i) &lt; 0 \]</span> <!-- --></p>
+<p><em>Démonstration.</em> Se ramener à la forme des pôles de la fonction de transfert : <span class="math inline">\(p_i = -a_i \pm j\Omega_i\)</span>. La décomposition en élément simple mène au résultat.</p>
+<p>Une seule étude de stabilité est nécessaire qu’il y ait perturbation ou pas.</p>
+<p><em>Démonstration.</em> Le dénominateur de la fonction de transfert en régulation et en poursuite est le même.</p>
+<p>Donc un système est stable en boucle fermée si seulement si <span class="math inline">\(1+H_{BO}(p)=0\)</span> n’a que des solutions à partie réelle <span class="math inline">\(&lt;0\)</span>. <!-- --></p>
+<p><em>Démonstration.</em> Les racines de <span class="math inline">\(1+H_{BO}\)</span> sont les pôles de <span class="math inline">\(H_{BF}\)</span>.</p>
+<figure>
+<img src="assets/PSI_si_asservissement-poles.svg" alt="Figure 1: Représentation des pôles" id="fig:f1" /><figcaption><span>Figure 1:</span> Représentation des pôles</figcaption>
+</figure>
+<h3 id="critère-de-routh-hors-programme"><span class="header-section-number">1.3.3</span> Critère de Routh (hors programme)</h3>
+<p>Ce critère ne marche pas sur un système comportant un retard. On considère un système de fonction de transfert <span class="math inline">\(H(p)\)</span> de dénominateur <span class="math display">\[ D(p) = a_n\,p^n+a_{n-1}\,p^{n-1}+...+a_1\,p+a_0 \]</span></p>
+<p>Le système est stable si seulement si</p>
+<ul>
+<li>Tous les coefficients <span class="math inline">\(a_i\)</span> soient de même signe et <span class="math inline">\(\neq 0\)</span>,</li>
+<li>Tous les termes de la première colonne du tableau (voir cours) soient de même signe et non nuls.</li>
+</ul>
+<p>Le nombre de racine à partie réelle strictement positive est donné par le nombre de changement de signe dans la première colonne.</p>
+<h3 id="thmcauchy"><span class="header-section-number">1.3.4</span> Théorème de Cauchy (hors programme)</h3>
+<p>Si un point <span class="math inline">\(M\)</span> d’affixe <span class="math inline">\(p\)</span> décrit dans le plan complexe un contour fermé <span class="math inline">\((C)\)</span> dans le sens inverse trigonométrique, à l’intérieur duquel se trouve <span class="math inline">\(P\)</span> pôles et <span class="math inline">\(Z\)</span> zéros d’une fonction <span class="math inline">\(F(p)\)</span>, alors l’image de <span class="math inline">\((C)\)</span> par <span class="math inline">\(F(p)\)</span> décrit une courbe <span class="math inline">\((\Gamma)\)</span> qui fait autour de l’origine <span class="math inline">\((Z-P)\)</span> tours.</p>
+<p><em>Démonstration.</em> La variation de l’argument de <span class="math inline">\(F(p)\)</span> pour un tour de <span class="math inline">\(M\)</span> sur <span class="math inline">\((C)\)</span> est <span class="math inline">\((-2\pi) \times (Z-P)\)</span>.</p>
+<h3 id="crinyquist"><span class="header-section-number">1.3.5</span> Critère de Nyquist (hors programme)</h3>
+<p>Un système bouclé est stable en boucle fermée si seulement si le lieu de Nyquist de <span class="math inline">\(H_{BO}\)</span> complété et parcouru dans le sens des <span class="math inline">\(\omega\)</span> croissants</p>
+<ul>
+<li>Ne passe pas par le point critique <span class="math inline">\(-1\)</span>,</li>
+<li>Fasse autour du point critique <span class="math inline">\(-1\)</span>, <span class="math inline">\(N\)</span> tours dans le sens trigonométrique égal au nombre de pôles de <span class="math inline">\(H_{BO}\)</span> à partie réelle strictement positive.</li>
+</ul>
+<p><em>Démonstration.</em> Par <a href="#condstab">la condition de stabilité</a> ainsi que <a href="#thmcauchy">le théorème de Cauchy</a> en considérant la courbe englobant la partie réelle positive du plan complexe. Le point critique est en <span class="math inline">\(-1\)</span> car on se rapporte à <span class="math inline">\(1+H_{BO}\)</span>.</p>
+<h3 id="critère-du-revers"><span class="header-section-number">1.3.6</span> Critère du Revers</h3>
+<p>Un système bouclé est stable en boucle fermée si et seulement si le point critique <span class="math inline">\(-1\)</span> reste à gauche en parcourant le lieu de Nyquist de <span class="math inline">\(H_{BO}\)</span> dans le sens des <span class="math inline">\(\omega\)</span> croissants.</p>
+<p>Valable que si <span class="math inline">\(H_{BO}\)</span> n’a pas de pôle à partie réelle positive.</p>
+<p><em>Démonstration.</em> Cas particulier du <a href="#crinyquist">critère de Nyquist</a>.</p>
+<h3 id="marge-de-phase-et-de-gain"><span class="header-section-number">1.3.7</span> Marge de phase et de gain</h3>
+<p>Soit <span class="math inline">\(\omega_c\)</span> la pulsation de coupure, i.e. <span class="math inline">\(|H_{BO}(j\,\omega_c)|=1\)</span>. Alors la marge de phase est <span class="math display">\[M_\varphi = \varphi(\omega_c) - (-180^\circ)\]</span></p>
+<p>Soit <span class="math inline">\(\omega_1\)</span> tel que <span class="math inline">\(\varphi(\omega_1)=-180^\circ\)</span>. Alors la marge de gain est <span class="math display">\[M_G = -20 \times \log|H_{BO}(\rm{j}\,\omega_1)|\]</span></p>
+<p>En pratique, il y a stabilité pour <span class="math inline">\(M_\varphi \geq 45^\circ\)</span> et <span class="math inline">\(M_G \geq 6\,\mathrm{dB}\)</span>.</p>
+<figure>
+<img src="assets/PSI_si_asservissement-mphasegain.svg" alt="Marge de Gain et de Phase sur un Nyquist et Bode" /><figcaption>Marge de Gain et de Phase sur un Nyquist et Bode</figcaption>
+</figure>
+<h3 id="facteur-de-résonance"><span class="header-section-number">1.3.8</span> Facteur de résonance</h3>
+<p>Il y a résonance en <span class="math inline">\(\omega_r=\omega_0 \sqrt{1-2 \xi^2}\)</span>. Le facteur de résonance est <span class="math display">\[Q = 20 \times \log \left( \frac{1}{2 \xi \sqrt{1-\xi^2}} \right)\]</span></p>
+<p><em>À savoir faire.</em> Lire <span class="math inline">\(Q\)</span> sur un diagramme de Bode (la parallèle à l’asymptote en BF passant par le maximum).</p>
+<p>En pratique, il y a stabilité pour <span class="math inline">\(Q \leq 2.3\,\mathrm{dB}\)</span>.</p>
+<h3 id="abaque-de-black-nichols"><span class="header-section-number">1.3.9</span> Abaque de Black-Nichols</h3>
+<p>L’abaque est consitué d’un réseau de courbes isophases et isomodules en boucle fermée par retour unitaire.</p>
+<p>En traçant un lieu de <span class="math inline">\(H_{BO}\)</span> on trouve</p>
+<ul>
+<li>Le facteur de qualité <span class="math inline">\(Q\)</span> par l’isomodule tangeant.</li>
+<li>La marge de phase <span class="math inline">\(M_\varphi\)</span> et de gain <span class="math inline">\(M_G\)</span> (voir fig. <a href="#fig:f3">2</a>).</li>
+</ul>
+<p><em>À faire au moins une fois dans sa vie.</em> Utiliser le module Control Design de MatLab-Simulink pour régler un correcteur via un abaque de Black-Nichols.</p>
+<figure>
+<img src="assets/PSI_si_asservissement-abaque.svg" alt="Figure 2: Abaque de Black-Nichols avec le lieu d’une H_{BO}" id="fig:f3" /><figcaption><span>Figure 2:</span> Abaque de Black-Nichols avec le lieu d’une <span class="math inline">\(H_{BO}\)</span></figcaption>
+</figure>
+<h3 id="modes-et-pôles-dominants"><span class="header-section-number">1.3.10</span> Modes et Pôles dominants</h3>
+<p>Voir fig. <a href="#fig:f1">1</a>. On peut approximer une fonction de transfert avec ses pôles dominants (les plus proches de l’origine) après le début du régime transitoire.</p>
+
+<h2 id="correcteurs-régulateurs"><span class="header-section-number">1.4</span> Correcteurs (Régulateurs)</h2>
+<p>Pour améliorer la stabilité, précision et la rapidité d’un système asservi on peut ajouter et régler un correcteur.</p>
+<figure>
+<img src="assets/PSI_si_asservissement-perf_bode.svg" alt="Visualisation des critères sur le Bode de H_{BO}" /><figcaption>Visualisation des critères sur le Bode de <span class="math inline">\(H_{BO}\)</span></figcaption>
+</figure>
+<h3 id="les-correcteurs-en-parallèle"><span class="header-section-number">1.4.1</span> Les correcteurs en parallèle</h3>
+<ul>
+<li>Retour avec une grandeur physique intermédiaire,</li>
+<li><strong>La compensation</strong> en mesurant la perturbation,</li>
+<li><strong>Chaîne d’anticipation</strong> (feedforward) avec l’entrée.</li>
+</ul>
+<h3 id="les-correcteurs-en-série"><span class="header-section-number">1.4.2</span> Les correcteurs en série</h3>
+<p>Mise en place plus simple qu’en parallèle, très utilisés.</p>
+<ul>
+<li><p><strong>Correction proportionnelle (P)</strong> : meilleures rapidité et précision mais la stabilité diminue (<span class="math inline">\(\omega_c\)</span> augmente donc <span class="math inline">\(M_\varphi\)</span> diminue). <span class="math inline">\(C(p)=K\)</span></p></li>
+<li><p><strong>Correction intégrale (I)</strong> : meilleure précision mais la stabilité diminue (<span class="math inline">\(-90^\circ\)</span> pour <span class="math inline">\(M_\varphi\)</span>). <span class="math inline">\(C(p)=\frac{1}{T_i\,p}\)</span></p></li>
+<li><p><strong>Correction dérivée (D)</strong> : meilleure rapidité et stabilité (<span class="math inline">\(+90^\circ\)</span> pour <span class="math inline">\(M_\varphi\)</span>) mais la précision diminue et risque de bruit en hautes fréquences. <span class="math inline">\(C(p)=T_D\,p\)</span></p></li>
+</ul>
+<h3 id="les-correcteurs-classiques"><span class="header-section-number">1.4.3</span> Les correcteurs classiques</h3>
+<h4 id="le-correcteur-pi"><span class="header-section-number">1.4.3.1</span> Le correcteur PI</h4>
+<p>Améliore la précision en ajoutant un intégrateur. <span class="math display">\[ C(p) = K \left( 1+\frac{1}{T_i\,p} \right) \]</span></p>
+<p><em>Méthode de réglage</em>.</p>
+<ol type="1">
+<li>Choisir la pulsation de coupure <span class="math inline">\(\omega_c\)</span> en réglant <span class="math inline">\(K\)</span>.</li>
+<li>Choisir la marge de phase <span class="math inline">\(M_\varphi\)</span> en réglant <span class="math inline">\(T_i&lt;\omega_c\)</span>.</li>
+</ol>
+<h4 id="le-correcteur-à-retard-de-phase"><span class="header-section-number">1.4.3.2</span> Le correcteur à retard de phase</h4>
+<p>Pour éviter l’instabilité due à l’intégrateur du PI, on utilise <span class="math display">\[ C(p) = K \frac{1+T\,p}{1+a\,T\,p} \quad\text{avec } a &gt; 1 \]</span></p>
+<p><em>Utilisation</em>.</p>
+<ul>
+<li>Règle la précision (placé dans les basses fréquences),</li>
+<li>Règle la marge de phase (placé dans les hautes fréquences).</li>
+</ul>
+<p><em>Point d’inflexion</em> en <span class="math inline">\(\omega_m = \frac{1}{T\sqrt{a}}\)</span> où <span class="math inline">\(\sin(\varphi_m) = \frac{1-a}{1+a}\)</span></p>
+<figure>
+<img src="assets/PSI_si_asservissement-bode_pi.svg" alt="Diagramme de Bode du PI et retard de phase" /><figcaption>Diagramme de Bode du PI et retard de phase</figcaption>
+</figure>
+<!-- TODO Ajouter retard de phase sur schéma -->
+<!-- TODO Je me suis arrêté là -->
+
+<h4 id="le-correcteur-pd"><span class="header-section-number">1.4.3.3</span> Le correcteur PD</h4>
+<p>Analogie du correcteur PI.</p>
+<p>Le correcteur PD n’est pas physique <span class="math display">\[C(p) = K \left( 1+T_d\,p \right)\]</span></p>
+<p>On bloque donc les BF avec <span class="math inline">\(\tau &lt;&lt; T_d\)</span> <!-- --> <span class="math display">\[C(p) = K \left( 1 + \frac{T_d\,p}{1+\tau\,p} \right)
+\approx K \frac{1+T_d\,p}{1+\tau\,p}\]</span></p>
+<h4 id="le-correcteur-à-avance-de-phase"><span class="header-section-number">1.4.3.4</span> Le correcteur à avance de phase</h4>
+<p>Analogie du correcteur à retard de phase. <span class="math display">\[C(p) = K \frac{1+T\,p}{1+a\,T\,p} \quad\text{avec } a &lt; 1\]</span> <!-- --></p>
+<p><img src="assets/PSI_si_asservissement-correction.svg" /></p>
+<h4 id="le-correcteur-pid"><span class="header-section-number">1.4.3.5</span> Le correcteur PID</h4>
+<p><span class="math display">\[C(p) = K \left( 1 + \frac{1}{\tau_i\,p} + \tau_d\,p \right)\]</span></p>
+
+<h1 id="mécanique"><span class="header-section-number">2</span> Mécanique</h1>
+<h2 id="rappels-de-première-année-1"><span class="header-section-number">2.1</span> Rappels de première année</h2>
+<h3 id="formule-de-willis"><span class="header-section-number">2.1.1</span> Formule de Willis</h3>
+<!-- TODO Mettre un schéma -->
+<p>À savoir retrouver très rapidement, soit en repartant du roulement sans glissement (méthode longue), soit directement en se plaçant sur le porte-sattelites.</p>
+<p>Par exemple : <span class="math display">\[\frac{\omega_{1/ps}}{\omega_{3/ps}} = - \frac{Z_3}{Z_1} \frac{Z_2}{Z_2}\]</span></p>
+<h3 id="formule-de-la-base-mobile"><span class="header-section-number">2.1.2</span> Formule de la base mobile</h3>
+<p>La formule de la base mobile, aussi appelée <strong>formule de Bour</strong>, est une relation entre les dérivées temporelles d’un vecteur par rapport à deux référentiels distincts.</p>
+<p><span class="math display">\[ \left.\frac{\mathrm{d}\vec{u}}{\mathrm{d}t}\right|_{R_0} =
+\left.\frac{\mathrm{d}\vec{u}}{\mathrm{d}t}\right|_R
++ \overrightarrow{\Omega}_{R/R_0} \wedge \vec{u} \]</span></p>
+<h3 id="varignon"><span class="header-section-number">2.1.3</span> Théorème de Varignon</h3>
+<p>Chaque torseur est composé d’<strong>une résultante</strong> et d’<strong>un moment</strong> (dépendant du point). Le théorème de Varignon permet de déplacer le point d’écriture du torseur.</p>
+<p>Par exemple pour <a href="#torseurs">le torseur cinématique</a>, on obtient la formule de Varignon <span class="math display">\[ \overrightarrow{V}_{B,~S/R} = \overrightarrow{V}_{A,~S/R} +
+\overrightarrow{BA} \wedge \overrightarrow{\Omega}_{S/R} \]</span></p>
+<p><em>Pour retenir.</em> « BABAR »</p>
+<p><em>Démonstration.</em> Avec la formule de la base mobile sur <span class="math inline">\(\frac{\mathrm{d} \overrightarrow{AB}}{\mathrm{d}t}\)</span> puis une relation de Chasles <span class="math inline">\(\overrightarrow{AB}=-\overrightarrow{OA}+\overrightarrow{OB}\)</span>.</p>
+<h3 id="modélisation-des-actions-mécaniques"><span class="header-section-number">2.1.4</span> Modélisation des actions mécaniques</h3>
+<p>On distingue :</p>
+<ul>
+<li><p>Les actions volumiques : l’action exercée sur pour un volume élémentaire <span class="math inline">\(\mathrm{d}\tau\)</span> est <span class="math display">\[ \mathrm{d}\vec{f}(M) = \vec{f}_v(M)\,\mathrm{d}\tau \]</span></p></li>
+<li><p>Les actions surfaciques : l’action exercée sur pour une surface élémentaire <span class="math inline">\(\mathrm{d}S\)</span> est <span class="math display">\[ \mathrm{d}\vec{f}(M) = \vec{f}_s(M)\,\mathrm{d}S \]</span></p></li>
+</ul>
+<p>Ainsi l’action appliqué à une particule infinitésimale de masse <span class="math inline">\(\mathrm{d}m\)</span>, de volume <span class="math inline">\(\mathrm{d}V\)</span> et de surface <span class="math inline">\(\mathrm{d}S\)</span> est <span class="math display">\[ \mathrm{d}\vec{f} = \vec{f}_v(M)\,\mathrm{d}V + \vec{f}_s(M)\,\mathrm{d}S \]</span></p>
+<h3 id="formule-de-gibbs"><span class="header-section-number">2.1.5</span> Formule de Gibbs</h3>
+<p><span class="math display">\[\vec{u} \wedge (\vec{v} \wedge \vec{w})
+= (\vec{u}\cdot\vec{w})\vec{v} - (\vec{u}\cdot\vec{v})\vec{w}\]</span></p>
+
+<h2 id="dynamique-des-solides"><span class="header-section-number">2.2</span> Dynamique des solides</h2>
+<p>On se limite à des <strong>solides indéformables</strong> et à <strong>masse conservative</strong>.</p>
+<h3 id="torseurs"><span class="header-section-number">2.2.1</span> Les torseurs utilisés</h3>
+<p><strong>Le torseur cinématique</strong> <span class="math display">\[ \{ \mathcal{V}_{S/R} \}
+= \left\{ \begin{array}{l}
+\overrightarrow{\Omega}_{S/R} \\
+\overrightarrow{V}_{A,~S/R}
+\end{array} \right\}_{A} \]</span></p>
+<p><strong>Le torseur des actions mécaniques</strong> <span class="math display">\[ \{ \mathcal{T}_{\overline{E}/E} \}
+= \left\{ \begin{array}{l}
+\overrightarrow{R}_{\overline{E}/E} \\
+\overrightarrow{M}_{A,~\overline{E}/E}
+\end{array} \right\}_{A}
+= \left\{ \begin{array}{l}
+\displaystyle\int_E \mathrm{d}\vec{f} \\
+\displaystyle\int_E \overrightarrow{AM}\wedge\mathrm{d}\vec{f}
+\end{array} \right\}_{A} \]</span></p>
+<p><strong>Le torseur cinétique</strong> <span class="math display">\[ \{ \mathcal{C}_{E/R} \}
+= \left\{ \begin{array}{l}
+\overrightarrow{R_C}_{(E/R)} \\
+\overrightarrow{\sigma}_{A,E/R}
+\end{array} \right\}_{A}
+= \left\{ \begin{array}{l}
+\displaystyle\int_E \overrightarrow{V}_{M,~E/R}\,\mathrm{d}m \\
+\displaystyle\int_E \overrightarrow{AM}\wedge\overrightarrow{V}_{M,~E/R}
+\,\mathrm{d}m
+\end{array} \right\}_{A} \]</span></p>
+<p><strong>Le torseur dynamique</strong> <span class="math display">\[ \{ \mathcal{D}_{E/R} \}
+= \left\{ \begin{array}{l}
+\overrightarrow{R_D}_{(E/R)} \\
+\overrightarrow{\delta}_{A,E/R}
+\end{array} \right\}_{A}
+= \left\{ \begin{array}{l}
+\displaystyle\int_E \overrightarrow{a}_{M/R}\,\mathrm{d}m \\
+\displaystyle\int_E \overrightarrow{AM}\wedge\overrightarrow{a}_{M/R}
+\,\mathrm{d}m
+\end{array} \right\}_{A} \]</span></p>
+<h3 id="propriétés-de-ces-torseurs"><span class="header-section-number">2.2.2</span> Propriétés de ces torseurs</h3>
+<p><span class="math display">\[ \overrightarrow{R_C}_{(E/R)} = m\,\overrightarrow{V}_{G,~E/R} \]</span> <span class="math display">\[ \overrightarrow{R_D}_{(E/R)}
+= \left.\frac{\mathrm{d}\overrightarrow{R_C}_{(E/R)}}{\mathrm{d}t} \right|_R
+= m\,\vec{a}_{G,~E/R} \]</span> <span class="math display">\[ \vec{\delta}_{A,E/R}
+= \left.\frac{\mathrm{d}\vec{\sigma}_{A,E/R}}{\mathrm{d}t} \right|_R
++ m\left.\frac{\mathrm{d}\overrightarrow{OA}}{\mathrm{d}t} \right|_R \wedge
+\vec{V}_{G,~E/R}\]</span></p>
+<p><em>Démonstration.</em> Avec <a href="#torseurs">la définition des torseurs</a>.</p>
+<h3 id="théorème-des-actions-réciproques"><span class="header-section-number">2.2.3</span> Théorème des actions réciproques</h3>
+<p><span class="math display">\[\{ \mathcal{T}_{E2/E1} \} = -\{ \mathcal{T}_{E1/E2} \}\]</span></p>
+<h3 id="théorèmes-généraux-de-la-mécanique"><span class="header-section-number">2.2.4</span> Théorèmes généraux de la mécanique</h3>
+<p>Le principe fondamental de la dynamique dit qu’il existe au moins un référentiel <span class="math inline">\(R\)</span> (dit galiléen) tel que <span class="math display">\[ \mathrm{d}\vec{f}(M) = \overrightarrow{a}_{M/R}\,\mathrm{d}m \]</span></p>
+<p><em>Démonstration.</em> Voir le cours de Physique.</p>
+<p>On obtient le théorème de la résultante et du moment : <span class="math display">\[\{ \mathcal{T}_{\overline{E}/E} \} = \{ \mathcal{D}_{E/R} \}\]</span></p>
+<p><em>Démonstration.</em> On utilise la relation précédente avec <a href="#torseurs">la définition des torseurs</a>.</p>
+<h3 id="algebre"><span class="header-section-number">2.2.5</span> Un peu d’algèbre linéaire</h3>
+<p>On considère le plan euclidien. Soit le vecteur <span class="math inline">\(\overrightarrow{AG}\)</span> de coordonnées <span class="math inline">\((x, y, z)\)</span> dans la base canonique.</p>
+<p>Soit <span class="math inline">\(M\)</span> la matrice canoniquement associée à l’application linéaire <span class="math inline">\(f: \overrightarrow{u} \mapsto \overrightarrow{AM} \wedge (\overrightarrow{u} \wedge \overrightarrow{AM})\)</span> :</p>
+<p><span class="math display">\[M = \left( \begin{array}{ccc}
+ y^2+z^2 &amp; - x y &amp; - x z \\
+ - x y &amp; x^2+z^2 &amp; - y z \\
+ - x z &amp; - y z &amp; x^2+y^2
+\end{array} \right)\]</span></p>
+<p><em>Démonstration.</em> Voir le cours de Mathématiques.</p>
+<h3 id="opérateur-dinertie"><span class="header-section-number">2.2.6</span> Opérateur d’inertie</h3>
+<p><span class="math inline">\(\mathcal{I}(A,S)\)</span> est l’opérateur d’inertie du solide <span class="math inline">\(S\)</span> exprimé en <span class="math inline">\(A\)</span>. <span class="math display">\[ \mathcal{I}(A,S):\overrightarrow{u}\mapsto\int_S\overrightarrow{AM}\wedge
+(\vec{u}\wedge\overrightarrow{AM})\,\mathrm{d}m \]</span></p>
+<p>Alors on a la <strong>propriété importante</strong> <span class="math display">\[ \vec{\sigma}_{A,~S/R} = \mathcal{I}(A,S) \overrightarrow{\Omega}_{S/R}
++ m\,\overrightarrow{AG} \wedge \overrightarrow{V}_{A,~S/R} \]</span></p>
+<h3 id="matrice-dinertie"><span class="header-section-number">2.2.7</span> Matrice d’inertie</h3>
+<p>La matrice d’inertie est la matrice associée à l’opérateur d’inertie. Elle est symétrique réelle donc il existe une <strong>base principale d’inertie</strong> où elle est diagonale et ses valeurs propres sont les <strong>moments principaux d’inertie</strong>.</p>
+<p>Par <a href="#algebre">ce qui précède</a> <span class="math display">\[\mathcal{I}(A,S) = \int_S M \, \mathrm{d}m\]</span></p>
+<p><em>À savoir faire.</em> Trouver la matrice d’inertie d’objets rudimentaires dans une base bien choisie.</p>
+<h3 id="huyghens"><span class="header-section-number">2.2.8</span> Théorème de Huyghens</h3>
+<p>Le théorème de Huyghens s’écrit <span class="math display">\[ \mathcal{I}(A, S)\vec{u} = \mathcal{I}(G, S)\vec{u}
++ m\,\overrightarrow{AG} \wedge (\vec{u} \wedge \overrightarrow{AG}) \]</span></p>
+<p>Donc avec <a href="#algebre">ce qui précède</a> avec <span class="math inline">\(\overrightarrow{AM}=\overrightarrow{AG}\)</span> <span class="math display">\[ \mathcal{I}(A, S) = \mathcal{I}(G, S) + m\,M \]</span></p>
+<p><em>Démonstration.</em> <span class="math inline">\(\overrightarrow{AM} = \overrightarrow{AG}+\overrightarrow{GM}\)</span> dans <span class="math inline">\(\mathcal{I}(A, S)\)</span>.</p>
+<h3 id="moment-dinertie-par-rapport-à-une-droite"><span class="header-section-number">2.2.9</span> Moment d’inertie par rapport à une droite</h3>
+<p>On note <span class="math inline">\(d\)</span> la distance entre deux objets dans l’espace.</p>
+<p>Le moment d’inertie par rapport à une droite <span class="math inline">\(\Delta\)</span> de vecteur directeur <span class="math inline">\(\vec{u}\)</span> passant par <span class="math inline">\(O\)</span> est <span class="math display">\[ J_{(S/\Delta)}=\int_S \left(d(M,\Delta)\right)^2\,\mathrm{d}m =
+\vec{u}\cdot\mathcal{I}(O, S)\vec{u} \]</span></p>
+<p>Le théorème de Huyghens implique que <span class="math display">\[ J_{(S/\Delta)} = J_{(S/\Delta&#39;)} + m\,\left(d(\Delta,\Delta&#39;)\right)^2 \]</span></p>
+<h3 id="caractéristiques-dinertie"><span class="header-section-number">2.2.10</span> Caractéristiques d’inertie</h3>
+<p>Les caractéristiques d’inertie du solide indéformable <span class="math inline">\(S\)</span> sont</p>
+<ul>
+<li>Sa masse <span class="math inline">\(m\)</span>,</li>
+<li>Son centre d’inertie <span class="math inline">\(G\)</span>,</li>
+<li>Son opérateur d’inertie <span class="math inline">\(\mathcal{I}(\cdot,S)\)</span>.</li>
+</ul>
+<h3 id="méthode-de-résolution-dun-problème"><span class="header-section-number">2.2.11</span> Méthode de résolution d’un problème</h3>
+<p>Pour trouver les paramètres du mouvement (cinématique du solide S par rapport à R) :</p>
+<ul>
+<li><p>Résultante :</p>
+<ul>
+<li>La résultante vaut <span class="math inline">\(\displaystyle m\,\vec{a}_{G,\,S/R} = m\,\left. \frac{\mathrm{d}^2 \overrightarrow{OG}}{\mathrm{d}t^2}\right|_R\)</span></li>
+</ul></li>
+<li><p>Moment <span class="math inline">\(\vec{\delta}_{A,\,S/R}\)</span> :</p>
+<ul>
+<li><p>Si on a l’opérateur d’intertie en <span class="math inline">\(G\)</span>,</p>
+<ol type="1">
+<li><p><span class="math inline">\(\displaystyle \vec{\delta}_{A,\,S/R} = \vec{\delta}_{G,\,S/R} + m\,\overrightarrow{AG} \wedge \vec{a}_{G,\,S/R}\)</span></p></li>
+<li><p><span class="math inline">\(\displaystyle \vec{\delta}_{G,\,S/R} = \left. \frac{\mathrm{d}\vec{\sigma}_{G,\,S/R}}{\mathrm{d}t} \right|_R\)</span></p></li>
+<li><p><span class="math inline">\(\displaystyle \vec{\sigma}_{G,\,S/R} = \mathcal{I}(G,S) \vec{\Omega}_{S/R}\)</span></p></li>
+</ol></li>
+<li><p>Sinon,</p>
+<ol type="1">
+<li><p><span class="math inline">\(\displaystyle \vec{\delta}_{A,\,S/R} = \left. \frac{\mathrm{d}\vec{\sigma}_{A,\,S/R}}{\mathrm{d}t} \right|_R + m\,\left.\frac{\mathrm{d}\overrightarrow{OA}}{\mathrm{d}t}\right|_R \wedge\vec{V}_{G,\,S/R}\)</span></p></li>
+<li><p><span class="math inline">\(\displaystyle \vec{\sigma}_{A,\,S/R} = \mathcal{I}(A,S) \vec{\Omega}_{S/R} + m\,\overrightarrow{AG} \wedge \vec{V}_{A,\,S/R}\)</span></p></li>
+</ol></li>
+</ul></li>
+</ul>
+<h3 id="théorèmes-de-guldin-hors-programme"><span class="header-section-number">2.2.12</span> Théorèmes de Guldin (hors programme)</h3>
+<!-- TODO Peut-on dire "solide homogène" ? -->
+<!-- TODO Figure -->
+<p><strong>Pour trouver une aire par révolution d’un arc.</strong> Soit <span class="math inline">\((AB)\)</span> un arc plan dans <span class="math inline">\((O,\vec{x},\vec{y})\)</span> de longueur <span class="math inline">\(L\)</span> et de centre d’inertie <span class="math inline">\(G\)</span>. <span class="math display">\[\mathcal{A} = L \times \mathrm{longueur~du~cercle~decrit~par~G}\]</span></p>
+<p><em>Démonstration.</em> Partir de <span class="math inline">\(\mathcal{A} = 2 \pi \int_{(AB)} x\, \mathrm{d}L\)</span> et introduire la masse linéique <span class="math inline">\(\rho\)</span>.</p>
+<p><strong>Pour trouver un volume par révolution d’une surface.</strong> Soit une surface dans <span class="math inline">\((O,\vec{x},\vec{y})\)</span> d’aire <span class="math inline">\(\mathcal{A}\)</span> et de centre d’inertie <span class="math inline">\(G\)</span>. <span class="math display">\[\mathcal{V} = \mathcal{A} \times \mathrm{longueur~du~cercle~decrit~par~G}\]</span></p>
+<p><em>Démonstration.</em> Partir de <span class="math inline">\(\mathcal{V} = 2 \pi \int_{S} x\, \mathrm{d}S\)</span> et introduire la masse linéique <span class="math inline">\(\rho\)</span>.</p>
+<h3 id="cas-dans-un-référentiel-non-galiléen-hors-programme"><span class="header-section-number">2.2.13</span> Cas dans un référentiel non Galiléen (hors programme)</h3>
+<p>Ce référentiel non galiléen se déplace par rapport à un référentiel galiléen.</p>
+<p>Ainsi il faut prendre en compte les forces d’entrainement et la force de Coriolis.</p>
+<p>Pour plus de détail : <a href="http://films-lab.univ-lille1.fr/michael/michael/Teaching_files/C2.pdf">Introduction à la mécanique du point</a></p>
+
+<h2 id="théorème-de-lénergie-cinétique"><span class="header-section-number">2.3</span> Théorème de l’énergie cinétique</h2>
+<h3 id="energiecin"><span class="header-section-number">2.3.1</span> Énergie cinétique de S par rapport à R</h3>
+<p>L’énergie cinétique de S par rapport à R est <span class="math display">\[ T(S/R) = \frac{1}{2} \int_S \overrightarrow{V}_{M,~S/R}^2 \, dm \]</span></p>
+<h3 id="puissance-des-efforts-extérieurs"><span class="header-section-number">2.3.2</span> Puissance des efforts extérieurs</h3>
+<p>La puissance des efforts extérieurs sur le solide <span class="math inline">\(S\)</span> est <span class="math display">\[{P_{e}}_{(\overline{S}\rightarrow S/R)}
+= \{ \mathcal{T}_{\overline{S}/S} \}_A \otimes \{ \mathcal{V}_{S/R} \}_A\]</span></p>
+<h3 id="puissance-des-efforts-intérieurs"><span class="header-section-number">2.3.3</span> Puissance des efforts intérieurs</h3>
+<p>La puissance des efforts intérieurs de l’ensemble de solide <span class="math inline">\(E\)</span> est <span class="math display">\[ P_{int(E)}
+= \sum_{i\neq j} \{\mathcal{T}_{i/j}\}_A \otimes \{\mathcal{V}_{j/i}\}_A \]</span></p>
+<p>Pour une liaison parfaite cette puissance est nulle sinon négative.</p>
+<h3 id="puissance-des-quantités-daccélération"><span class="header-section-number">2.3.4</span> Puissance des quantités d’accélération</h3>
+<p>La puissance des quantités d’accélération du solide <span class="math inline">\(S\)</span> est <span class="math display">\[ {P_{a}}_{(S/R)} = \{\mathcal{D}_{S/R}\}_B \otimes \{\mathcal{V}_{S/R}\}_B \]</span></p>
+<p>Donc <span class="math display">\[ {P_{a}}_{(S/R)} = \frac{d T(S/R)}{dt}\]</span></p>
+<p><em>Démonstration.</em> Par le calcul en utilisant <a href="#torseurs">la définition des torseurs</a> et <a href="#energiecin">de l’énergie cinétique</a>.</p>
+<h3 id="théorème-de-lénergie-cinétique-1"><span class="header-section-number">2.3.5</span> Théorème de l’énergie cinétique</h3>
+<p>Aussi appelé « théorème de l’énergie/puissance » par le programme.</p>
+<p>Pour un ensemble <span class="math inline">\(E\)</span> de solides <span class="math display">\[\frac{d T(E/R)}{dt} = {P_{e}}_{(\overline{E}\rightarrow E/R)} + P_{int(E)}\]</span></p>
+<p><em>Démonstration.</em> Le PFD donne <span class="math inline">\({P_{e}}_{(\overline{S}\rightarrow S/R)} = {P_{a}}_{(S/R)}\)</span> pour un solide. On généralise ensuite pour un ensemble de solides.</p>
+<h3 id="expression-de-lénergie-cinétique"><span class="header-section-number">2.3.6</span> Expression de l’énergie cinétique</h3>
+<p><span class="math display">\[\begin{array}{rcl}
+T(S/R) &amp; = &amp; \frac{1}{2} m \overrightarrow{V}_{A,~S/R}^2 \\
+ &amp; &amp; + \frac{1}{2} \vec{\Omega}_{S/R}.\mathcal{I}(A,S)\vec{\Omega}_{S/R} \\
+ &amp; &amp; + (m \overrightarrow{AG}, \vec{V}_{A,~S/R}, \vec{\Omega}_{S/R})
+\end{array}\]</span></p>
+<p><em>Démonstration (à savoir faire).</em> À partir de la définition de <span class="math inline">\(T(S/R)\)</span> et avec <a href="#varignon">la formule de Varignon</a>.</p>
+<p><em>Remarque.</em> Le choix du point <span class="math inline">\(A\)</span> n’est important que pour le calcul. Il faut donc le choisir astucieusement.</p>
+<p>Il est plus astucieux parfois d’utiliser cette expression qui se montre par calcul à partir de la définition des torseurs. <span class="math display">\[ T(S/R)=\frac{1}{2} \{\mathcal{C}_{S/R}\} \otimes \{\mathcal{V}_{S/R}\} \]</span></p>
+<h3 id="utilisation-du-théorème-de-lénergie-cinétique"><span class="header-section-number">2.3.7</span> Utilisation du théorème de l’énergie cinétique</h3>
+<h4 id="posologie"><span class="header-section-number">2.3.7.1</span> Posologie</h4>
+<p>Théorème à utiliser sur un système régit par un seul paramètre de mouvement. À éviter s’il existe des frottements que l’on ne souhaite pas déterminer.</p>
+<h4 id="calcul-dune-inertie-équivalente"><span class="header-section-number">2.3.7.2</span> Calcul d’une inertie équivalente</h4>
+<p>Pour calculer l’inertie équivalente de <span class="math inline">\(E=1+2+3\)</span>, on écrit <span class="math display">\[ T(E/R)=T(1/R)+T(2/R)+T(3/R)=\frac{1}{2} I_{eq} \omega_1^2 \]</span></p>
+
+<h2 id="mobilité-hyperstaticité"><span class="header-section-number">2.4</span> Mobilité, hyperstaticité</h2>
+<h3 id="nombre-cyclomatique"><span class="header-section-number">2.4.1</span> Nombre cyclomatique</h3>
+<p>On note <span class="math inline">\(\nu\)</span> le nombre de cycles indépendants d’une chaîne fermée complexe. Pour <span class="math inline">\(L\)</span> liaisons et <span class="math inline">\((N-1)\)</span> pièces autres que le bâti <span class="math display">\[\nu = L-(N-1)\]</span></p>
+<h3 id="analyse-cinématique"><span class="header-section-number">2.4.2</span> Analyse cinématique</h3>
+<p>Dans le plan on peut écrire <span class="math inline">\(E_c=3 \nu\)</span> équations par la fermeture de chaîne cinématique et dans l’espace : <span class="math display">\[E_c=6 \nu\]</span></p>
+<p>Le nombre d’inconnues cinématiques est : <span class="math display">\[I_c=\sum_{\mathrm{liaisons}} DDL\]</span></p>
+<p>Dans le plan, <span class="math inline">\(DDL_{\mathrm{liaison}} \leq 3\)</span>.</p>
+<h3 id="analyse-statique"><span class="header-section-number">2.4.3</span> Analyse statique</h3>
+<p>Le nombre d’équations de statique que l’on peut écrire dans l’espace est : <span class="math display">\[E_s = 6(N-1)\]</span></p>
+<p>Le nombre d’inconnues d’effort est : <span class="math display">\[I_s = \sum_{\mathrm{liaison}} (6-I_{c~\mathrm{liaison}})\]</span></p>
+<h3 id="mobilité-cinématique"><span class="header-section-number">2.4.4</span> Mobilité cinématique</h3>
+<p>Soit <span class="math inline">\(r_c\)</span> le rang du système <span class="math inline">\(\{ \mathcal{V}_{S_i/S_i} \} = \{ 0 \}\)</span>. Ainsi la mobilité cinématique est : <span class="math display">\[m_c = I_c - r_c\]</span></p>
+<p>On remarque que : <span class="math inline">\(m_c = m_{\mathrm{utile}} + m_{\mathrm{interne}}\)</span></p>
+<h3 id="déterminant-caractéristique"><span class="header-section-number">2.4.5</span> Déterminant caractéristique</h3>
+<p>On note <span class="math inline">\(r_s\)</span> le rang du système <span class="math inline">\(\{ \mathcal{T}_{ext/S_i} \} = \{ 0 \}\)</span>.</p>
+<p><span class="math inline">\(E_s-r_s\)</span> conditions doivent être vérifiées pour que le mécanisme soit en équilibre.</p>
+<h3 id="hyperstaticité"><span class="header-section-number">2.4.6</span> Hyperstaticité</h3>
+<p>On note <span class="math inline">\(h\)</span> l’hyperstaticité : <span class="math display">\[h = I_s - r_s\]</span></p>
+<p>En étude statique, c’est le nombre d’inconnues de liaisons en trop pour résoudre le système.</p>
+<p>En étude cinématique, dans une base bien choisie, c’est le nombre d’équations <span class="math inline">\(0=0\)</span> obtenues.</p>
+<p>Si <span class="math inline">\(h=0\)</span>, alors le système est <strong>isostatique</strong>.</p>
+<h3 id="formule-de-mobilité"><span class="header-section-number">2.4.7</span> Formule de mobilité</h3>
+<p><span class="math display">\[m_c - h = I_c - E_c = E_s - I_s\]</span></p>
+<p>Le plus souvent <span class="math inline">\(m_c\)</span> est évident et alors la méthode cinématique est directe : <span class="math display">\[h = m_c - (I_c - E_c)\]</span></p>
+<p><em>Démonstration.</em> Voir le cours.</p>
+<h2 id="équilibrage"><span class="header-section-number">2.5</span> Équilibrage</h2>
+<h3 id="solide-équilibré"><span class="header-section-number">2.5.1</span> Solide équilibré</h3>
+<p>Un solide en rotation autour d’un axe fixe est dit équilibré si les actions qu’il exerce sur le bâti qui le supporte sont constantes au cours du temps.</p>
+<h3 id="théorème"><span class="header-section-number">2.5.2</span> Théorème</h3>
+<p>Un solide en rotation autour d’un axe fixe est équilibré si seulement si :</p>
+<ul>
+<li><p>Équilibrage statique : centre d’inertie <span class="math inline">\(G \in\)</span> axe rotation,</p></li>
+<li><p>Équilibrage dynamique : l’axe de rotation est un axe principal d’inertie.</p></li>
+</ul>
+<h3 id="question-de-cours"><span class="header-section-number">2.5.3</span> Question de cours</h3>
+<p>On peut équilibrer avec une unique masse si la bonne composante de la matrice d’inertie est nulle. Savoir refaire pour équilibrer avec deux masses.</p>
+
+<h1 id="logique-séquentielle"><span class="header-section-number">3</span> Logique séquentielle</h1>
+<h2 id="circuits-logiques"><span class="header-section-number">3.1</span> Circuits logiques</h2>
+<h3 id="bascule-rs"><span class="header-section-number">3.1.1</span> Bascule RS</h3>
+<figure>
+<img src="assets/PSI_si_logique-bascule_RS_declenchement_prio.svg" alt="Exemple de réalisation : Déclenchement prioritaire" /><figcaption>Exemple de réalisation : Déclenchement prioritaire</figcaption>
+</figure>
+<figure>
+<img src="assets/PSI_si_logique-bascule_RS_enclenchement_prio.svg" alt="Exemple de réalisation : Enclenchement prioritaire" /><figcaption>Exemple de réalisation : Enclenchement prioritaire</figcaption>
+</figure>
+
+<h2 id="diagrammes-sysml"><span class="header-section-number">3.2</span> Diagrammes SysML</h2>
+<!--
+Un diagramme des séquences montre l'enchaînement séquentiel des différentes
+interactions.
+Il contient **des lignes de vie** et des flèches représentant les
+interactions, ainsi que **des fragments combinés**.
+
+Un diagramme d'états peut contenir des états composites. Il faut accéder à tous
+les points de terminaison pour sortir de l'état composite.
+
+
+![Diagramme d'états, stm](assets/PSI_si_logique-diagramme_etats.png)
+
+![Diagramme d'états avec un état
+composite](assets/PSI_si_logique-diagramme_etats_composite.png)
+
+![Diagramme des séquences, sd](assets/PSI_si_logique-diagramme_sequences.png)
+
+\newpage
+
+![](assets/PSI_si_logique-sysml)
+
+\newpage
+-->
+<h3 id="architecture-des-systèmes"><span class="header-section-number">3.2.1</span> Architecture des systèmes</h3>
+<figure>
+<img src="assets/PSI_si_logique-sysml-ibd.svg" alt="Diagramme des blocs internes (ibd)" /><figcaption>Diagramme des blocs internes (ibd)</figcaption>
+</figure>
+<figure>
+<img src="assets/PSI_si_logique-chaine_info.svg" alt="Chaîne d’information et d’énergie (à savoir faire)" /><figcaption>Chaîne d’information et d’énergie (à savoir faire)</figcaption>
+</figure>
+<p>Le diagramme de blocs internes se compose de flux de matière, d’énergie et d’information.</p>
+<p>Voici quelques exemples classiques d’architectures :</p>
+<ul>
+<li>Pour un système utilisant un moteur Courant-Continu :
+<ol type="1">
+<li><strong>Alimenter</strong> : batterie ou { transformateur, redresseur (pont de diodes) et filtrage },</li>
+<li><strong>Distribuer</strong> : pont en H,</li>
+<li><strong>Convertir</strong> : moteur CC,</li>
+<li><strong>Transmettre</strong> : réducteur, poulie-couroie…</li>
+<li><strong>Agir</strong> : déplacement du robot…</li>
+</ol></li>
+<li>Pour un système pneumatique :
+<ol type="1">
+<li><strong>Alimenter</strong> : tête de ligne qui reçoit l’énergie pneumatique d’un compresseur,</li>
+<li><strong>Distribuer</strong> : distributeur ou électrovanne,</li>
+<li><strong>Adapter</strong> : réducteur de débit, bloqueur…</li>
+<li><strong>Convertir</strong> : actionneur pneumatique comme un vérin, une ventouse…</li>
+<li><strong>Agir</strong> : aspiration, mouvement…</li>
+</ol></li>
+</ul>
+
+<h1 id="hydraulique-et-pneumatique-de-puissance"><span class="header-section-number">4</span> Hydraulique et pneumatique de puissance</h1>
+<p>Ce chapitre est hors programme en PSI mais permet de comprendre le fonctionnement de certains systèmes.</p>
+<h2 id="pneumatique-de-puissance"><span class="header-section-number">4.1</span> Pneumatique de puissance</h2>
+<h3 id="distribution-de-lénergie"><span class="header-section-number">4.1.1</span> Distribution de l’énergie</h3>
+<p>Avant chaque système il y a une tête de ligne, aussi appelée une unitée de conditionnement de l’air FRL. Il est composé de :</p>
+<!-- TODO Mettre des figures pour illustrer chaque composant -->
+<ul>
+<li><strong>Un filtre</strong> : assèche l’air et filtre les impuretés,</li>
+<li><strong>Un manomètre régulateur</strong> : régule/règle la pression,</li>
+<li><strong>Un lubrificateur</strong> : évite la corrosion et améliore le glissement.</li>
+</ul>
+<!-- TODO À finir -->
+<div id="footer">
+  Ce document écrit par Alexandre Iooss est sous licence
+  <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.
+  </a>
+</div>
+</body>
+</html>
